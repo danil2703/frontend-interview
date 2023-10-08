@@ -76,6 +76,7 @@ Angular приложение можно скомпилировать с помо
   </table>
 </details>
 
+<details>
 <summary>Для чего нужны директивы ng-template, ng-container, ng-content?</summary>
 <div>
   <h4>1. ng-template</h4>
