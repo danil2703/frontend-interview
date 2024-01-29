@@ -243,3 +243,81 @@ app.component.html
 
 </div>
 </details>
+
+## RXJS:
+
+<details>
+<summary>Что такое Subject? Виды Subject, их отличия</summary>
+
+Тип `Subject` — разновидность `RxJS Observable`, который может доставлять данные сразу нескольким подписчикам.
+
+```ts
+let subject = new Subject();
+
+subject.subscribe((v) => {
+    console.log('Observer 1: ' + v);
+});
+subject.subscribe((v) => {
+    console.log('Observer 2: ' + v);
+});
+
+subject.next(9);
+```
+
+Виды Subject:
+
+* Subject
+Все значения которые были переданы без подписчиков - игнорируются.
+
+* BehaviorSubject
+Передает новому подписчику последнее значение, в качестве аргумента принимает начальное значение.
+
+```ts
+let behaviorSubject = new BehaviorSubject<Number>(3);
+
+behaviorSubject.subscribe((v) => {
+    console.log('Observer with value of 3: ' + v);
+});
+
+behaviorSubject.next(9);
+
+behaviorSubject.subscribe((v) => {
+    console.log('Observer with value of 9: ' + v);
+});
+```
+
+* ReplaySubject
+Передает новому подписчику все предыдущие значения, принимаемый параметр — количество предыдущих значений.
+
+```ts
+let replaySubject = new ReplaySubject<Number>(2);
+
+replaySubject.next(3);
+replaySubject.next(6);
+replaySubject.next(9);
+replaySubject.next(12);
+
+replaySubject.subscribe((value) => {
+    console.log('ReplaySubject: ' + value);
+});
+```
+
+* AsyncSubject
+Передает новому подписчику последнее значение, но только после того, как будет вызван метод complete().
+
+```ts
+let asyncSubject = new AsyncSubject<Number>(3);
+
+asyncSubject.subscribe((value) => {
+    console.log('AsyncSubject: ' + value);
+});
+
+asyncSubject.next(3);
+asyncSubject.next(6);
+asyncSubject.next(9);
+
+asyncSubject.complete();
+```
+
+</details>
+
